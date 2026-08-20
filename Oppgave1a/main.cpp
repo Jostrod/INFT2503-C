@@ -1,8 +1,6 @@
 #include <iostream>
 #include <string>
 
-using namespace std;
-
 int main() {
 
   const int LENGTH = 5;
@@ -12,11 +10,11 @@ int main() {
   int overTen = 0;
   int overOne = 0;
 
-  cout << "Skriv inn " << LENGTH << " temperaturer:\n";
+  std::cout << "Enter " << LENGTH << " temperatures\n";
 
   for (int i = 0; i < LENGTH; i++) {
-    cout << "Temperature " << i + 1 << " : ";
-    cin >> temps[i];
+    std::cout << "Temperature " << i + 1 << " : ";
+    std::cin >> temps[i];
   }
 
   for (int i = 0; i < LENGTH; i++) {
@@ -29,9 +27,9 @@ int main() {
     }
   }
 
-  cout << "Antall under 10 er: " << overOne << "\n";
-  cout << "Antall mellom 10 og 20 er: " << overTen << "\n";
-  cout << "Antall over 20 er: " << overTwenty << "\n";
+  std::cout << "Antall under 10 er: " << overOne << "\n";
+  std::cout << "Antall mellom 10 og 20 er: " << overTen << "\n";
+  std::cout << "Antall over 20 er: " << overTwenty << "\n";
 
   return 0;
 }

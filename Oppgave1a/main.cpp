@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits>
 #include <string>
 
 int main() {
@@ -10,11 +11,21 @@ int main() {
   int overTen = 0;
   int overOne = 0;
 
-  std::cout << "Enter " << LENGTH << " temperatures\n";
+  int data;
+
+  std::cout << "Enter " << LENGTH << " temperatures";
 
   for (int i = 0; i < LENGTH; i++) {
-    std::cout << "Temperature " << i + 1 << " : ";
-    std::cin >> temps[i];
+
+    std::cout << "\nTemperature number " << i + 1 << ": ";
+
+    while (!(std::cin >> data)) {
+      std::cout << "Invalid input\n";
+      std::cin.clear();
+      std::cin.ignore(100000, '\n');
+    }
+
+    temps[i] = data;
   }
 
   for (int i = 0; i < LENGTH; i++) {

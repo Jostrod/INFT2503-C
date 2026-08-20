@@ -29,7 +29,7 @@ int main() {
   }
 
   cout << "Temperatures less than 10: " << lessThanTen << "\n";
-  cout << "Temperatures between 10 an 20: " << lessThanTwenty << "\n";
+  cout << "Temperatures between 10 and 20: " << lessThanTwenty << "\n";
   cout << "Temperatures over 20: " << overTwenty << "\n";
 
   return 0;

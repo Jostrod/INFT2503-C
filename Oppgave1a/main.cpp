@@ -22,7 +22,7 @@ int main() {
     while (!(std::cin >> data)) {
       std::cout << "Invalid input\n";
       std::cin.clear();
-      std::cin.ignore(100000, '\n');
+      std::cin.ignore(100000, '\n'); // 100 000 burde holde
     }
 
     temps[i] = data;

@@ -11,7 +11,7 @@ int main() {
   int overTen = 0;
   int overOne = 0;
 
-  int data;
+  double data;
 
   std::cout << "Enter " << LENGTH << " temperatures";
 
@@ -29,7 +29,7 @@ int main() {
   }
 
   for (int i = 0; i < LENGTH; i++) {
-    if (temps[i] >= 1 && temps[i] < 10) {
+    if (temps[i] < 10) {
       overOne++;
     } else if (temps[i] >= 10 && temps[i] < 20) {
       overTen++;

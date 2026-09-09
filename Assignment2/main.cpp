@@ -53,27 +53,35 @@ int main() {
 
   int sum3 = find_sum(&table[15], 5);
 
-  std::cout << "Summen fra 15 til 20 er: " << sum3 << "\n";
+  std::cout << "Summen fra 16 til 20 er: " << sum3 << "\n";
 
   return 0;
 }
 
 void assignment1a() {
 
-  int i = 3;
-  int j = 5;
-  int *p = &i;
-  int *q = &j;
+  int i = 3;   // I settes lik 3
+  int j = 5;   // j settes lik 5
+  int *p = &i; // pekeren p peker på adressen til i
+  int *q = &j; // Pekeren q peker på adressen til j
+
+  std::cout << "Verdier:\n";
 
   std::cout << i << "\n";
-  std::cout << *p << "\n";
-  std::cout << *q << "\n";
+  std::cout << *p << "\n"; // Derefererer p og gir verdien som ligger på adressen p peker til(i)
+  std::cout << *q << "\n"; // Derefererer q og gir verdien som ligger på adressen q peker til(j)
   std::cout << j << "\n\n";
 
+  std::cout << "Adresser:\n";
+
+  std::cout << &i << "\n"; // p inneholder adressen til i, så &i og p er de samme
   std::cout << p << "\n";
-  std::cout << q << "\n";
-  std::cout << &i << "\n";
+
+  std::cout << q << "\n"; // q inneholder adressen til j
   std::cout << &j << "\n";
+  // p og q er egne variabler med egne plasser i minne
+  std::cout << &p << "\n";
+  std::cout << &q << "\n";
 }
 
 void assignment1b() {
@@ -83,10 +91,10 @@ void assignment1b() {
   int *p = &i;
   int *q = &j;
 
-  *p = 7;
-  *q += 4;
-  *q = *p + 1;
-  p = q;
+  *p = 7;      // Verdien til i (det p peker på) settes til 7
+  *q += 4;     // Verdien til j (det q peker på) settes til &j + 4 ---> 5 + 4 = 9
+  *q = *p + 1; // Verdien j settes til *p + 1, altså verdien til i (7) + 1 = 8
+  p = q;       // Her endres faktisk pekeren p, som nå peker på dit q peker (j) ikke lenger på i
 
   std::cout << *p << " " << *q << std::endl;
 }

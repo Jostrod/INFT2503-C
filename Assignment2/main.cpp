@@ -9,23 +9,51 @@ void assignment4();
 
 void assignment5();
 
+int find_sum(const int *table, int length);
+
 int main() {
-  /*
-    assignment1a();
-    std::cout << "\n";
 
+  // Oppggave 1 a:
 
-    assignment1b();
+  std::cout << "Oppgave 1 a:\n";
+  assignment1a();
 
+  // Oppgave 1 b:
 
+  std::cout << "\nOppgave 1 b:\n";
+  assignment1b();
 
-  // Oppgave 2
-  char *line = nullptr;
-  strcpy(line, "This is a string"); // Segfault
+  // Oppgave 4
 
-  */
+  std::cout << "\nOppgave 4:\n";
+  assignment4();
+
+  // Oppgave 5
+  std::cout << "\nOppgave 5:\n";
 
   assignment5();
+
+  int table[20];
+
+  for (int i = 0; i < 20; i++) {
+    table[i] = (i + 1);
+  }
+
+  // Oppgave 6:
+
+  std::cout << "\nOppgave 6:\n";
+
+  int sum1 = find_sum(table, 10);
+
+  std::cout << "Summen fra 0 til 10 er: " << sum1 << "\n";
+
+  int sum2 = find_sum(&table[10], 5);
+
+  std::cout << "Summen fra 11 til 15 er: " << sum2 << "\n";
+
+  int sum3 = find_sum(&table[15], 5);
+
+  std::cout << "Summen fra 15 til 20 er: " << sum3 << "\n";
 
   return 0;
 }
@@ -87,15 +115,32 @@ void assignment4() {
               // Fjernet * fordi b ikke er en peker, det er ingen adresse som må dereferensieres.
 
   b = 2; // Kan ikke sette adressen til b = 2. Men verdien på adressen kan settes til 2
+
+  std::cout << "Oppgave 4 kompilerer\n";
 }
 
 void assignment5() {
 
   double number;
   double *pNumber = &number;
+  double &rNumber = number;
 
-  // number = 25; // Måte 1
-  *pNumber = 25; // Måte 2
+  number = 25;   // Måte 1 - sette number = 25 direkte
+  *pNumber = 25; // Måte 2 - Sette via pekeren
+  rNumber = 25;  // Måte 3 - Sette via referansen
 
+  std::cout << number << "\n";
   std::cout << *pNumber << "\n";
+  std::cout << rNumber << "\n";
+}
+
+int find_sum(const int *table, int length) {
+
+  int sum = 0;
+
+  for (int i = 0; i < length; i++) {
+    sum += table[i];
+  }
+
+  return sum;
 }

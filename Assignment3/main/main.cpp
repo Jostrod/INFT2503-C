@@ -78,6 +78,8 @@ int main() {
   cout << "Prisen for " << quantity << " kg er " << commodity.get_price_with_sales_tax(quantity)
        << " med moms" << endl;
        */
+
+  assignment4();
 }
 
 Circle::Circle(double radius_) : radius(radius_) {};
@@ -118,4 +120,33 @@ double Commodity::get_price_with_sales_tax(double amount) {
 }
 
 void assignment4() {
+
+  string word1;
+  int wordOneCount;
+
+  string word2;
+  int wordTwoCount;
+
+  string word3;
+  int word3Count;
+
+  cout << "Skriv inn 3 ord:\n";
+
+  cout << "Ord 1: \n";
+
+  cin >> word1;
+
+  for (int i = 0; i < word1.)
+
+    cout << "Ord 2: \n";
+
+  cin >> word2;
+
+  cout << "Ord 3: \n";
+
+  cin >> word3;
+
+  string sentence = word1 + " " + word2 + " " + word3 + ".";
+
+  cout << sentence;
 }

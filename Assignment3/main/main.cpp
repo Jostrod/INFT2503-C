@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 #include <string>
 
@@ -121,14 +122,13 @@ double Commodity::get_price_with_sales_tax(double amount) {
 
 void assignment4() {
 
+  // Oppgave a
+
   string word1;
-  int wordOneCount;
 
   string word2;
-  int wordTwoCount;
 
   string word3;
-  int word3Count;
 
   cout << "Skriv inn 3 ord:\n";
 
@@ -136,9 +136,7 @@ void assignment4() {
 
   cin >> word1;
 
-  for (int i = 0; i < word1.)
-
-    cout << "Ord 2: \n";
+  cout << "Ord 2: \n";
 
   cin >> word2;
 
@@ -146,7 +144,72 @@ void assignment4() {
 
   cin >> word3;
 
+  // Oppgave b
   string sentence = word1 + " " + word2 + " " + word3 + ".";
 
+  for (auto &x : sentence) { // Passer på alt er i lower case, for å gjøre livet lettere for meg selv
+    x = tolower(x);
+  }
+
   cout << sentence;
+
+  // Oppgave c
+  int word1Len = word1.length();
+  int word2Len = word2.length();
+  int word3Len = word3.length();
+
+  int sentenceLen = sentence.length();
+
+  cout << "\nLengden på ord 1 er: " << word1Len << endl;
+  cout << "Lengden på ord 2 er: " << word2Len << endl;
+  cout << "Lengden på ord 3 er: " << word3Len << endl;
+  cout << "Lengden på hele setningen er: " << sentenceLen << endl;
+
+  // Oppgave d
+  string sentence2 = sentence;
+
+  // Oppgave e
+
+  if (sentence2.length() >= 12) {
+    sentence2[9] = 'x';
+    sentence2[11] = 'x';
+    cout << "\n"
+         << "Setning før modifisering: " << sentence
+         << "\nSetning etter modifisering: " << sentence2;
+  } else {
+    cout << "Setningen er ikke lang nok til å bytte ut tegn nr 10 og 12";
+  }
+
+  // Oppgave f
+  if (sentence2.length() >= 5) {
+    char sentence_start[5];
+
+    for (int i = 0; i < 5; i++) {
+      sentence_start[i] = sentence2[i];
+    }
+    cout << "\nStarten på setningen: " << sentence_start
+         << "\nHele setningen: " << sentence2;
+  }
+
+  // Oppgave g
+  string word = "hallo";
+
+  if (sentence.find(word) != string::npos) {
+    cout << "\nHallo finnes i setningen.";
+  } else {
+    cout << "\nHallo finnes ikke i setningen.";
+  }
+
+  // Oppgave h
+
+  int counter = 0;
+  string::size_type pos = 0;
+  string target = "er";
+
+  while ((pos = sentence.find(target, pos)) != string::npos) {
+    ++counter;
+    pos += target.length();
+  }
+
+  cout << "\nEr finnes: " << counter << " Ganger i setningen.";
 }

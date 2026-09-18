@@ -166,7 +166,8 @@ void assignment4() {
   // Oppgave d
   string sentence2 = sentence;
 
-  // Oppgave e
+  // Oppgave e - Antok at vi skulle bytte ut tegn nr 10 og 12, uansett om det er mellomrom eller bokstav?
+  // Om jeg tolket det feil, ville jeg sjekket om plass nr 10 og 12 var whitespace, og bare ertsatte med X om det ikke var whitespace.
 
   if (sentence2.length() >= 12) {
     sentence2[9] = 'x';
@@ -199,7 +200,9 @@ void assignment4() {
     cout << "\nHallo finnes ikke i setningen.";
   }
 
-  // Oppgave h - Tolket det som at "er" skulle være i ett ord, altså at <sendE Robot> ikke telles.
+  // Oppgave h - Tolket det som at forekomster telles uansett om det er i ett ord eller ikke så "sendE" - "Robot" telles som en.
+  // Så jeg fjerner mellomrom og slår sammen alle ordene.
+  sentence.erase(remove(sentence.begin(), sentence.end(), ' '), sentence.end());
 
   int counter = 0;
   string::size_type pos = 0;
@@ -210,5 +213,5 @@ void assignment4() {
     pos += target.length();
   }
 
-  cout << "\nEr finnes: " << counter << " Ganger i setningen.";
+  cout << "\nEr finnes: " << counter << " Ganger i setningen.\n";
 }

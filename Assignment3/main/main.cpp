@@ -46,7 +46,6 @@ private:
 
 int main() {
 
-  /*
   Circle sirkel = Circle(5);
 
   double areal = sirkel.get_area();
@@ -78,7 +77,6 @@ int main() {
        << " uten moms" << endl;
   cout << "Prisen for " << quantity << " kg er " << commodity.get_price_with_sales_tax(quantity)
        << " med moms" << endl;
-       */
 
   assignment4();
 }
@@ -130,7 +128,7 @@ void assignment4() {
 
   string word3;
 
-  cout << "Skriv inn 3 ord:\n";
+  cout << "\nOPPGAVE 4\nSkriv inn 3 ord:\n";
 
   cout << "Ord 1: \n";
 
@@ -180,7 +178,8 @@ void assignment4() {
     cout << "Setningen er ikke lang nok til å bytte ut tegn nr 10 og 12";
   }
 
-  // Oppgave f
+  // Oppgave f - Tolket det som at vi skulle telle med whitespace som en del av tegnene. Om dette ikke er tilfelle ville jeg gjort i prinsippet det samme,
+  // men slått sammen alle ordene og fjernet whitespace.
   if (sentence2.length() >= 5) {
     char sentence_start[5];
 
@@ -200,7 +199,7 @@ void assignment4() {
     cout << "\nHallo finnes ikke i setningen.";
   }
 
-  // Oppgave h
+  // Oppgave h - Tolket det som at "er" skulle være i ett ord, altså at <sendE Robot> ikke telles.
 
   int counter = 0;
   string::size_type pos = 0;

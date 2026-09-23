@@ -1,16 +1,46 @@
 #include <algorithm>
+#include <gtkmm.h>
 #include <iostream>
 #include <vector>
 
 void assignment1();
 
-void assignment2();
+class Window : public Gtk::Window {
+public:
+  Gtk::Box box;
+  Gtk::Entry firstName;
+  Gtk::Entry lastName;
+  Gtk::Button button;
+  Gtk::Label label;
+
+  Window() : box(Gtk::Orientation::ORIENTATION_VERTICAL) {
+    button.set_label("Combine name");
+
+    box.pack_start(firstName);
+    box.pack_start(lastName);
+    box.pack_start(button); // Add the widget button to box
+    box.pack_start(label);  // Add the widget label to box
+
+    add(box);   // Add vbox to window
+    show_all(); // Show all widgets
+
+    firstName.signal_activate().connect([this]() {
+      label.set_text("Entry activated");
+    });
+
+    button.signal_clicked().connect([this]() {
+      label.set_text("Combined name: " + firstName.get_text() + " " + lastName.get_text());
+    });
+  }
+};
 
 int main() {
 
   assignment1();
 
-  return 0;
+  auto app = Gtk::Application::create();
+  Window window;
+  return app->run(window);
 }
 
 void assignment1() {
@@ -38,7 +68,4 @@ void assignment1() {
   } else {
     std::cout << "\nIkke funnet\n";
   }
-}
-
-void assignment2() {
 }

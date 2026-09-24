@@ -15,17 +15,29 @@ public:
 
   Window() : box(Gtk::Orientation::ORIENTATION_VERTICAL) {
     button.set_label("Combine name");
+    button.set_sensitive(false);
 
     box.pack_start(firstName);
     box.pack_start(lastName);
-    box.pack_start(button); // Add the widget button to box
-    box.pack_start(label);  // Add the widget label to box
+    box.pack_start(button);
+    box.pack_start(label);
+    add(box);
+    show_all();
 
-    add(box);   // Add vbox to window
-    show_all(); // Show all widgets
+    firstName.signal_changed().connect([this]() {
+      if (!lastName.get_text().empty() && !(firstName.get_text().empty())) {
+        button.set_sensitive(true);
+      } else {
+        button.set_sensitive(false);
+      }
+    });
 
-    firstName.signal_activate().connect([this]() {
-      label.set_text("Entry activated");
+    lastName.signal_changed().connect([this]() {
+      if (!firstName.get_text().empty() && !lastName.get_text().empty()) {
+        button.set_sensitive(true);
+      } else {
+        button.set_sensitive(false);
+      }
     });
 
     button.signal_clicked().connect([this]() {
@@ -40,6 +52,7 @@ int main() {
 
   auto app = Gtk::Application::create();
   Window window;
+  window.set_title("Øving 4 - Oppgave2");
   return app->run(window);
 }
 

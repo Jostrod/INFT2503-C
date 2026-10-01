@@ -26,6 +26,16 @@ public:
     /// Return color and type of the chess piece
     virtual std::string type() const = 0;
 
+    virtual char symbol() const = 0;
+
+    virtual char colored_symbol(char letter) const {
+      if (color == Color::WHITE) {
+        return toupper(letter);
+      } else {
+        return tolower(letter);
+      }
+    }
+
     /// Returns true if the given chess piece move is valid
     virtual bool valid_move(int from_x, int from_y, int to_x, int to_y) const = 0;
   };
@@ -35,11 +45,39 @@ public:
     King(Color color) : Piece(color) {}
 
     string type() const override {
-      return color_string() + "king";
+      return color_string() + " king";
     };
+
+    char symbol() const override {
+      return colored_symbol('K');
+    }
+
+    bool valid_move(int from_x, int from_y, int to_x, int to_y) const override {
+      int d_x = abs(to_x - from_x);
+      int d_y = abs(to_y - from_y);
+
+      return d_x <= 1 && d_y <= 1 && (d_x != 0 || d_y != 0);
+    }
   };
 
   class Knight : public Piece {
+  public:
+    Knight(Color color) : Piece(color) {}
+
+    string type() const override {
+      return color_string() + " knight";
+    }
+
+    char symbol() const override {
+      return colored_symbol('n');
+    }
+
+    bool valid_move(int from_x, int from_y, int to_x, int to_y) const override {
+      int d_x = abs(to_x - from_x);
+      int d_y = abs(to_y - from_y);
+
+      return (d_x == 2 && d_y == 1) || (d_x == 1 && d_y == 2);
+    }
   };
 
   ChessBoard() {

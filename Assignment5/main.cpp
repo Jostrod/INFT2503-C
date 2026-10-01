@@ -90,6 +90,24 @@ public:
   /// 8x8 squares occupied by 1 or 0 chess pieces
   vector<vector<unique_ptr<Piece>>> squares;
 
+  void printBoard() const {
+    for (int y = 7; y >= 0; y--) {
+      cout << (y + 1) << " ";
+
+      for (int x = 0; x < 8; x++) {
+        const auto &piece = squares[x][y];
+
+        if (piece) {
+          cout << " " << piece->symbol() << " ";
+        } else {
+          cout << " # ";
+        }
+      }
+      cout << endl;
+    }
+    cout << "   a  b  c  d  e  f  g  h\n";
+  }
+
   /// Move a chess piece if it is a valid move.
   /// Does not test for check or checkmate.
   bool move_piece(const std::string &from, const std::string &to) {
@@ -115,6 +133,7 @@ public:
           }
         }
         piece_to = move(piece_from);
+        printBoard();
         return true;
       } else {
         cout << "can not move " << piece_from->type() << " from " << from << " to " << to << endl;

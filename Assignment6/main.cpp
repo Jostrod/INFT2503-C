@@ -82,7 +82,6 @@ public:
   };
 
   ChessBoard() {
-    // Initialize the squares stored in 8 columns and 8 rows:
     squares.resize(8);
     for (auto &square_column : squares)
       square_column.resize(8);
@@ -91,29 +90,13 @@ public:
   /// 8x8 squares occupied by 1 or 0 chess pieces
   vector<vector<unique_ptr<Piece>>> squares;
 
-  void printBoard() const {
-    for (int y = 7; y >= 0; y--) {
-      cout << (y + 1) << " ";
-
-      for (int x = 0; x < 8; x++) {
-        const auto &piece = squares[x][y];
-
-        if (piece) {
-          cout << " " << piece->symbol() << " ";
-        } else {
-          cout << " # ";
-        }
-      }
-      cout << endl;
-    }
-    cout << "   a  b  c  d  e  f  g  h\n";
-  }
-
   function<void(const Piece &piece, const string &from, const string &to)> on_piece_move;
   function<void(const Piece &piece, const string &square)> on_piece_removed;
   function<void(Color color)> on_lost_game;
   function<void(const Piece &piece, const string &from, const string &to)> on_piece_move_invalid;
   function<void(const string &square)> on_piece_move_missing;
+  function<void()> draw;
+  function<void()> after_piece_move;
 
   /// Move a chess piece if it is a valid move.
   bool move_piece(const std::string &from, const std::string &to) {
@@ -125,67 +108,87 @@ public:
     auto &piece_from = squares[from_x][from_y];
     if (piece_from) {
       if (piece_from->valid_move(from_x, from_y, to_x, to_y)) {
-        if (on_piece_move)
-          on_piece_move(*piece_from, from, to);
         auto &piece_to = squares[to_x][to_y];
+        on_piece_move(*piece_from, from, to);
         if (piece_to) {
           if (piece_from->color != piece_to->color) {
-            if (on_piece_removed)
-              on_piece_removed(*piece_to, to);
-            if (auto king = dynamic_cast<King *>(piece_to.get())) {
-              if (on_lost_game)
-                on_lost_game(king->color);
-            }
+            on_piece_removed(*piece_to, to);
+            if (auto king = dynamic_cast<King *>(piece_to.get()))
+              on_lost_game(king->color);
           } else {
-            if (on_piece_move_invalid)
-              on_piece_move_invalid(*piece_from, from, to);
+            // piece in the from square has the same color as the piece in the to square
+            on_piece_move_invalid(*piece_from, from, to);
             return false;
           }
         }
         piece_to = move(piece_from);
+        after_piece_move();
         return true;
       } else {
-        if (on_piece_move_invalid)
-          on_piece_move_invalid(*piece_from, from, to);
+        on_piece_move_invalid(*piece_from, from, to);
         return false;
       }
     } else {
-      if (on_piece_move_missing)
-        on_piece_move_missing(from);
+      on_piece_move_missing(from);
       return false;
     }
   }
 };
 
-class DrawBoard {
+class ChessBoardPrint {
+
+  ChessBoard &board;
+
 public:
-  DrawBoard(ChessBoard board);
+  ChessBoardPrint(ChessBoard &board) : board(board) {
+
+    board.draw = [&board] {
+      for (int y = 7; y >= 0; y--) {
+        cout << (y + 1) << " ";
+
+        for (int x = 0; x < 8; x++) {
+          const auto &piece = board.squares[x][y];
+
+          if (piece) {
+            cout << " " << piece->symbol() << " ";
+          } else {
+            cout << " # ";
+          }
+        }
+        cout << endl;
+      }
+      cout << "   a  b  c  d  e  f  g  h\n";
+    };
+
+    board.after_piece_move = [&board] {
+      board.draw();
+    };
+
+    board.on_piece_move = [](const ChessBoard::Piece &piece, const string &from, const string &to) {
+      cout << piece.type() << " is moving from " << from << " to " << to << endl;
+    };
+    board.on_piece_removed = [](const ChessBoard::Piece &piece, const string &square) {
+      cout << piece.type() << " is being removed from " << square << endl;
+    };
+    board.on_lost_game = [](ChessBoard::Color color) {
+      if (color == ChessBoard::Color::WHITE)
+        cout << "Black";
+      else
+        cout << "White";
+      cout << " won the game" << endl;
+    };
+    board.on_piece_move_invalid = [](const ChessBoard::Piece &piece, const string &from, const string &to) {
+      cout << "can not move " << piece.type() << " from " << from << " to " << to << endl;
+    };
+    board.on_piece_move_missing = [](const string &square) {
+      cout << "no piece at " << square << endl;
+    };
+  }
 };
 
 int main() {
   ChessBoard board;
-
-  board.on_piece_move = [](const ChessBoard::Piece &piece, const string &from, const string &to) {
-    cout << piece.type() << " is moving from " << from << " to " << to << endl;
-  };
-  board.on_piece_removed = [](const ChessBoard::Piece &piece, const string &square) {
-    cout << piece.type() << " is being removed from " << square << endl;
-  };
-  board.on_lost_game = [](ChessBoard::Color color) {
-    if (color == ChessBoard::Color::WHITE)
-      cout << "Black";
-    else
-      cout << "White";
-    cout << " won the game" << endl;
-  };
-  board.on_piece_move_invalid = [](const ChessBoard::Piece &piece, const string &from, const string &to) {
-    cout << "can not move " << piece.type() << " from " << from << " to " << to << endl;
-  };
-  board.on_piece_move_missing = [](const string &square) {
-    cout << "no piece at " << square << endl;
-  };
-
-  /*
+  ChessBoardPrint print(board);
 
   board.squares[4][0] = make_unique<ChessBoard::King>(ChessBoard::Color::WHITE);
   board.squares[1][0] = make_unique<ChessBoard::Knight>(ChessBoard::Color::WHITE);
@@ -194,6 +197,8 @@ int main() {
   board.squares[4][7] = make_unique<ChessBoard::King>(ChessBoard::Color::BLACK);
   board.squares[1][7] = make_unique<ChessBoard::Knight>(ChessBoard::Color::BLACK);
   board.squares[6][7] = make_unique<ChessBoard::Knight>(ChessBoard::Color::BLACK);
+
+  board.draw();
 
   cout << "Invalid moves:" << endl;
   board.move_piece("e3", "e2");
@@ -211,6 +216,4 @@ int main() {
   board.move_piece("d5", "f6");
   board.move_piece("h6", "g8");
   board.move_piece("f6", "e8");
-
-  */
 }

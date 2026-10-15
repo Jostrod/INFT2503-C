@@ -9,6 +9,10 @@ void print(const string &text, const Fraction &broek) {
 }
 
 int main() {
+
+  std::cout << "### OPPGAVE 1 ### \n"
+            << std::endl;
+
   Fraction a(1, 2);
   Fraction b(3, 4);
   Fraction c;
@@ -42,12 +46,18 @@ int main() {
   print("c = ", c);
 
   std::cout << "\n";
-  print("a = ", a);
 
-  Fraction fraction1 = a - 7; // a = this
-                              // 1 = other
+  Fraction fraction1(1, 2);
 
   print("fraction1 = ", fraction1);
+
+  Fraction fraction2 = fraction1 - 5;
+
+  print("Fraction1 - 5 = ", fraction2);
+
+  Fraction fraction3 = 5 - fraction1;
+
+  print("5 - Fraction1 = ", fraction3);
 
   std::cout << "\n";
 
@@ -58,4 +68,8 @@ int main() {
   while (b > a)
     b -= a;
   print("b = ", b);
+
+  std::cout << "\n#######\n";
+  std::cout << "### OPPGAVE 2 ### \n"
+            << std::endl;
 }

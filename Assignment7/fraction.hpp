@@ -10,11 +10,14 @@ public:
   Fraction(const Fraction &) = default;
   void set(int numerator_, int denominator_ = 1);
   Fraction operator+(const Fraction &other) const;
+
   Fraction operator-(const Fraction &other) const;
   Fraction operator*(const Fraction &other) const;
   Fraction operator/(const Fraction &other) const;
   Fraction operator-() const;
-  Fraction operator-(int &number);
+
+  Fraction operator-(int number);
+
   Fraction &operator++(); // Preinkrement
   Fraction &operator--(); // Predekrement
   Fraction &operator+=(const Fraction &other);
@@ -33,3 +36,5 @@ private:
   void reduce();
   int compare(const Fraction &other) const;
 };
+
+Fraction operator-(int number, Fraction &other);

@@ -61,12 +61,18 @@ Fraction Fraction::operator-() const {
   return *this;
 }
 
-Fraction Fraction::operator-(int &number) {
+Fraction Fraction::operator-(int number) {
+  number *= denominator;
+  numerator -= number;
+  return *this;
+}
+// Tall - Brøk
+
+Fraction operator-(int number, Fraction &other) {
   Fraction fraction;
-
-  set(number * this->numerator);
-
-  fraction -= *this;
+  number *= other.denominator;
+  fraction.numerator = number - other.numerator;
+  fraction.denominator = other.denominator;
   return fraction;
 }
 

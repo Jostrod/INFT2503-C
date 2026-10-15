@@ -1,11 +1,16 @@
 #include "fraction.hpp"
+#include "set.hpp"
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
 void print(const string &text, const Fraction &broek) {
   cout << text << broek.numerator << " / " << broek.denominator << endl;
+}
+
+void printSet(const string &text, const Set &set) {
 }
 
 int main() {
@@ -19,10 +24,6 @@ int main() {
 
   print("A: ", a);
   print("B: ", b);
-
-  Fraction q = a - b;
-
-  print("A - B: ", q);
 
   c.set(5);
   Fraction d = a / b;
@@ -72,4 +73,9 @@ int main() {
   std::cout << "\n#######\n";
   std::cout << "### OPPGAVE 2 ### \n"
             << std::endl;
+
+  Set set1({1, 2, 3, 4});
+  Set set2({2, 3, 4});
+
+  Set set3 = set1 | set2;
 }

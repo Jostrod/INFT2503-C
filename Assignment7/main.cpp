@@ -10,9 +10,6 @@ void print(const string &text, const Fraction &broek) {
   cout << text << broek.numerator << " / " << broek.denominator << endl;
 }
 
-void printSet(const string &text, const Set &set) {
-}
-
 int main() {
 
   std::cout << "### OPPGAVE 1 ### \n"
@@ -74,8 +71,33 @@ int main() {
   std::cout << "### OPPGAVE 2 ### \n"
             << std::endl;
 
-  Set set1({1, 2, 3, 4});
-  Set set2({2, 3, 4});
+  Set empty; // Tomt sett
 
-  Set set3 = set1 | set2;
+  Set s({1, 1, 2, 2, 3});
+  std::cout << s << std::endl;
+
+  std::cout << "Tomt sett: " << empty;
+
+  Set set({1, 2, 3, 4});
+
+  std::cout << "\nSet 1: " << set;
+
+  set += 9;
+  std::cout << "\nLagt til tall: " << set;
+
+  set += 9;
+
+  std::cout << "\nLagt til samme tall igjen: " << set;
+
+  Set set2({3, 4, 5, 6});
+
+  std::cout << "\nSet nr. 2: " << set2;
+
+  Set set3 = set | set2;
+
+  std::cout << "\nSet 1 union set 2: " << set3;
+
+  set3 = set;
+
+  std::cout << "\nTilordning: " << set3;
 }

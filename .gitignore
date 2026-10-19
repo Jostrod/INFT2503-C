@@ -1,0 +1,15 @@
+# Visual Studio / CMake
+.vs/
+out/
+build/
+CMakeUserPresets.json
+
+# Editor
+.vscode/
+
+# Build-filer
+*.exe
+*.obj
+*.ilk
+*.pdb
+*.o
